@@ -17,6 +17,7 @@ for dirpath, dirnmaes, filenames in os.walk(stamped_folder):
 final_video_files = []
 
 # Save the files into a text file
+print("# All the files to be stitched here", file=file_list_txt)
 for file_name in stamped_files:
     if not file_name.endswith('.txt'):
         final_video_files.append(file_name)
