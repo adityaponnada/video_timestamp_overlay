@@ -32,6 +32,9 @@ for file_name in stamped_files:
 
 print("Input folder: " + str(stamped_folder + sep + 'file_list.txt'))
 
+print("test command:::: " + 'ffmpeg -f concat -safe 0 -i ' + str(stamped_folder + sep + 'file_list.txt') + ' -c copy ' +
+      str(stamped_folder + sep + 'output.mp4'))
+
 # Run the os command for ffmpeg concatination
 os.system('ffmpeg -f concat -safe 0 -i ' + str(stamped_folder + sep + 'file_list.txt') + ' -c copy ' +
           str(stamped_folder + sep + 'output.mp4'))
