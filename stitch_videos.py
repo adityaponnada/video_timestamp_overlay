@@ -1,4 +1,3 @@
-import ffmpeg
 import os
 import sys
 from os import sep
@@ -33,10 +32,6 @@ video_files = stamped_folder + sep + 'file_list.txt'
 
 print("Input text file: " + str(video_files))
 
-# # Run the os command for ffmpeg concatination
-# os.system('ffmpeg -f concat -safe 0 -i ' + str(stamped_folder + sep + 'file_list.txt') + ' -c copy ' +
-#           str(stamped_folder + sep + 'output.mp4'))
-
 # merge the video files
 cmd = ["ffmpeg",
        "-f",
@@ -53,14 +48,13 @@ cmd = ["ffmpeg",
        ]
 
 print("Command is: " + str(cmd))
-p = subprocess.Popen(cmd, stdin=subprocess.PIPE)
+p = subprocess.run(cmd, capture_output=True, shell=True)
 
-fout = p.stdin
-fout.close()
-
-print(p.returncode)
 if p.returncode != 0:
     raise subprocess.CalledProcessError(p.returncode, cmd)
 
 end = time.time()
 print("Merging videos took", end - start, " seconds.")
+
+# Remvoe the temp file.txt
+os.remove(video_files)
