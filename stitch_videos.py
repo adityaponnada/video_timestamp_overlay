@@ -7,39 +7,35 @@ import subprocess
 
 in_file = sys.argv[1]
 stamped_folder = in_file + sep + 'stamped'
-# stamped_files = os.listdir(stamped_folder)
-stamped_files = []
-final_output = stamped_folder + sep + 'combined'
 file_list_txt = open(stamped_folder + sep + 'file_list.txt', 'w')
-
-for dirpath, dirnmaes, filenames in os.walk(stamped_folder):
-    for file in filenames:
-        stamped_files.append(os.path.join(os.path.abspath(dirpath), file))
-
-final_video_files = []
-
-# Save the files into a text file
-print("# All the files to be stitched here", file=file_list_txt)
-for file_name in stamped_files:
-    if not file_name.endswith('.txt'):
-        final_video_files.append(file_name)
-        print("file " + "'" + file_name + "'", file=file_list_txt)
-
-
-print("Input folder: " + str(stamped_folder + sep + 'file_list.txt'))
-
-file_list = open(stamped_folder + sep + 'file_list.txt', 'w')
-video_files = stamped_folder + sep + 'file_list.txt'
+stitched_output_name = 'stitched.mp4'
+stamped_files = []
 final_output_loc = stamped_folder + sep + 'stitched'
 if not os.path.exists(final_output_loc):
     os.makedirs(final_output_loc)
 
-final_output = final_output_loc + sep + 'stitched.mp4'
+final_output = final_output_loc + sep + stitched_output_name
 
 try:
-    os.remove(final_output_loc + sep + 'stitched.mp4')
+    os.remove(final_output_loc + sep + stitched_output_name)
 except OSError:
     pass
+
+start = time.time()
+for root, dirs, files in os.walk(stamped_folder):
+    for file in files:
+        if file.endswith('.mp4'):
+            file_to_add = os.path.join(os.path.abspath(root), file)
+            print("File to add: " + str(file_to_add))
+            file_list_txt.write("file '%s'\n" % file_to_add)
+file_list_txt.close()
+video_files = stamped_folder + sep + 'file_list.txt'
+
+print("Input text file: " + str(video_files))
+
+# # Run the os command for ffmpeg concatination
+# os.system('ffmpeg -f concat -safe 0 -i ' + str(stamped_folder + sep + 'file_list.txt') + ' -c copy ' +
+#           str(stamped_folder + sep + 'output.mp4'))
 
 # merge the video files
 cmd = ["ffmpeg",
@@ -47,8 +43,8 @@ cmd = ["ffmpeg",
        "concat",
        "-safe",
        "0",
-       "-loglevel",
-       "quiet",
+       # "-loglevel",
+       # "quiet",
        "-i",
        "%s" % video_files,
        "-c",
@@ -56,9 +52,7 @@ cmd = ["ffmpeg",
        "%s" % final_output
        ]
 
-
-start = time.time()
-
+print("Command is: " + str(cmd))
 p = subprocess.Popen(cmd, stdin=subprocess.PIPE)
 
 fout = p.stdin
@@ -70,11 +64,3 @@ if p.returncode != 0:
 
 end = time.time()
 print("Merging videos took", end - start, " seconds.")
-
-
-# print("test command:::: " + 'ffmpeg -f concat -safe 0 -i ' + str(stamped_folder + sep + 'file_list.txt') + ' -c copy ' +
-#       str(stamped_folder + sep + 'output.mp4'))
-#
-# # Run the os command for ffmpeg concatination
-# os.system('ffmpeg -f concat -safe 0 -i ' + str(stamped_folder + sep + 'file_list.txt') + ' -c copy ' +
-#           str(stamped_folder + sep + 'output.mp4'))
