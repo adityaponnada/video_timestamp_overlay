@@ -54,7 +54,10 @@ def add_timestamp_overlay(in_path, file_name, out_path=None, preview=True, progr
     fourcc = cv2.VideoWriter_fourcc(*'MP4V')
 
     # Create an output file name
-    output_file = out_path + sep + f'{file_name[:- 4]}_stamped.mp4'
+    out_put_dir = out_path + sep + 'stamped'
+    if not os.path.exists(out_put_dir):
+        os.makedirs(out_put_dir)
+    output_file = out_put_dir + sep + f'{file_name[:- 4]}_stamped.mp4'
 
     # Create a video writer buffer
     out = cv2.VideoWriter(output_file, fourcc,
