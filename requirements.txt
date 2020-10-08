@@ -1,4 +1,2 @@
-ffmpeg
-pyffmpeg>=1.8
 opencv-contrib-python>=4.4.0.44
 tqdm
