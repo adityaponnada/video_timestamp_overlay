@@ -95,8 +95,8 @@ def add_timestamp_overlay(in_path, file_name, out_path=None, preview=True, progr
                 frame_count = frame_count + 1
                 frame = cv2.putText(frame,
                                     str(frame_time),
-                                    (50, 50),
-                                    font, 1,
+                                    (30, 30),
+                                    font, 0.75,
                                     (0, 255, 255),
                                     2,
                                     cv2.LINE_4)
