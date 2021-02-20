@@ -8,6 +8,8 @@ Make sure to install all the dependencies using the following command.
 
 ## Run the script
 To run the script, type the following command.
+
+
 `python overlay_multiple_videos.py folder_path_with_multiple_videos number_of_cores`
 
 
