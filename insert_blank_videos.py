@@ -5,10 +5,10 @@ import datetime
 from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
 
 # Path to the blank video
-blank_video_path = sys.argv[1]
+blank_video_path = 'blank.mp4'
 
 # path to the list of video files
-video_files_path = sys.argv[2]
+video_files_path = sys.argv[1]
 
 FIXED_VIDEO_LENGTH = 10 * 60
 
