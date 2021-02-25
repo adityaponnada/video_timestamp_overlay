@@ -11,11 +11,11 @@ Make sure to install all the dependencies using the following command.
 The video capturing tool might have lags when it stops recording the current video and starts recording the subsequent video. Thus, to add blank frames in between to make labeling more convenient, run the following command.
 
 
-`python insert_blank_videos.py path_to_blank_video.mp4 folder_path_with_multiple_videos`
+`python insert_blank_videos.py folder_path_with_multiple_videos`
 
 
 Please perform this step first if there are gaps between multiple videos. This script will save the right sized blank mp4 videos with appropriate file names in the folder with multiple videos. Once done, you can run the script below to add time stamp overlays and stitch them together.
-To access a sample blank video, please click [here.](https://drive.google.com/file/d/14LMbbLsPTi5ILxqM3HMWbaDbS6bUJEQJ/view?usp=sharing)
+While the script uses an internal video file, to access a sample blank video, please click [here.](https://drive.google.com/file/d/14LMbbLsPTi5ILxqM3HMWbaDbS6bUJEQJ/view?usp=sharing)
 
 ## Run the script
 To run the script, type the following command.
@@ -24,4 +24,4 @@ To run the script, type the following command.
 `python overlay_multiple_videos.py folder_path_with_multiple_videos number_of_cores`
 
 
-The folder path is the path to folder that contains all the mp4 videos collected during data collection. For paralellel processing please provide the number of cores to be used (e.g., 4 or 8). The output is saved in multiple_videos_folder/stamped/stitched/
+The folder path is the path to folder that contains all the mp4 videos collected during data collection. For parallel processing please provide the number of cores to be used (e.g., 4 or 8). The output is saved in multiple_videos_folder/stamped/stitched/
